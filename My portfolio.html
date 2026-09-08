@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Okunola God'sfavour — Portfolio</title>
+
+  <style>
+    :root {
+      --bg: #eaf6fd;
+      --text: #0a3a5c;
+      --text-soft: #3a6c8c;
+      --accent: #e91e8c;
+      --accent-2: #3fa9f5;
+      --card-bg: #ffffff;
+      --border: #cfe8f9;
+      --shadow: 0 6px 18px rgba(10, 58, 92, 0.10);
+    }
+
+    body.dark {
+      --bg: #0b1220;
+      --text: #e8eef7;
+      --text-soft: #9fb3cc;
+      --accent: #ff5fa8;
+      --accent-2: #4fc3ff;
+      --card-bg: #141b2e;
+      --border: #232c42;
+      --shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2rem;
+      background: var(--card-bg);
+      border-bottom: 2px solid var(--accent);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    h1 { margin: 0; font-size: 1.4rem; }
+
+    nav { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+
+    nav a {
+      color: var(--accent-2);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border: 2px solid var(--accent-2);
+      border-radius: 20px;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    }
+
+    nav a:hover { background: var(--accent-2); color: var(--card-bg); transform: translateY(-2px); }
+
+    #theme-toggle {
+      background: var(--accent);
+      color: #ffffff;
+      border: none;
+      padding: 0.5rem 1.1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.85rem;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    #theme-toggle:hover { background: var(--accent-2); transform: translateY(-2px); }
+
+    section { padding: 3.5rem 2rem; max-width: 850px; margin: 0 auto; }
+
+    /* HERO */
+    #profile { text-align: center; padding-top: 4.5rem; padding-bottom: 2.5rem; }
+    #profile h2 { font-size: 2rem; margin: 0.35rem 0; }
+    #profile .tagline { color: var(--text-soft); font-weight: 600; margin-bottom: 1.5rem; }
+
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+
+    /* SECTION CARDS */
+    .card-section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      margin: 0 auto 2rem;
+      max-width: 850px;
+      padding: 2.5rem;
+    }
+
+    .card-section h2 { margin-top: 0; }
+    .card-section p { color: var(--text-soft); line-height: 1.6; }
+
+    .eyebrow-tag {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    /* SKILL PILLS */
+    .skill-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+    .skill-list li {
+      background: var(--bg);
+      border: 2px solid var(--accent-2);
+      color: var(--accent-2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    /* EXPERIENCE */
+    .exp-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-row:last-child { border-bottom: none; }
+    .exp-role { font-weight: bold; }
+    .exp-meta { color: var(--text-soft); font-size: 0.85rem; }
+
+    /* PROJECT CARDS */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .project-card h3 { margin: 0; font-size: 1rem; }
+    .project-card p { margin: 0; color: var(--text-soft); font-size: 0.9rem; flex-grow: 1; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag-pill {
+      font-size: 0.72rem;
+      font-weight: bold;
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+      border-radius: 14px;
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      padding: 0.65rem 1.4rem;
+      border-radius: 24px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: background 0.2s ease, transform 0.15s ease, color 0.2s ease;
+      text-align: center;
+      border: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .btn-primary { background: var(--accent); color: #ffffff; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-2); border-color: var(--accent-2); transform: translateY(-2px); }
+
+    .btn-outline { background: transparent; color: var(--accent); border-color: var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: #ffffff; transform: translateY(-2px); }
+
+    .btn-small { padding: 0.45rem 1rem; font-size: 0.8rem; align-self: flex-start; }
+
+    /* PROFILE PICTURE */
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--accent);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.25rem;
+    }
+
+    /* CERTIFICATES */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .cert-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .cert-card h3 { margin: 0; font-size: 0.95rem; line-height: 1.35; }
+    .cert-card .cert-issuer { color: var(--text-soft); font-size: 0.8rem; font-weight: 600; }
+
+    .cert-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .cert-card img:hover { transform: scale(1.02); }
+
+    .cert-preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 160px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, rgba(63, 169, 245, 0.15), rgba(233, 30, 140, 0.12));
+      color: var(--text);
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 1rem;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .cert-preview:hover {
+      transform: scale(1.02);
+      border-color: var(--accent);
+    }
+
+    .cert-file {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 160px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: rgba(63, 169, 245, 0.08);
+      color: var(--text-soft);
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .cert-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+    /* MODELLING */
+    .modeling-gallery { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1.5rem 0; }
+
+    .modeling-gallery img {
+      width: 220px;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 3px solid var(--border);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .modeling-gallery img:hover { transform: scale(1.02); }
+
+    /* CONTACT */
+    .contact-buttons { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+    footer { text-align: center; padding: 2.5rem; font-size: 0.85rem; color: var(--text-soft); }
+
+    /* IMAGE VIEWER MODAL */
+    .img-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(10, 20, 35, 0.85);
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+    .img-modal.open { display: flex; }
+    .img-modal img {
+      max-width: min(90vw, 720px);
+      max-height: 85vh;
+      border-radius: 10px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .img-modal-close {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      background: none;
+      border: 2px solid rgba(255,255,255,0.5);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .img-modal-close:hover { background: #fff; color: var(--text); }
+
+    @media (max-width: 600px) {
+      header { flex-direction: column; align-items: flex-start; }
+      #profile { padding-top: 2.5rem; }
+      .modeling-gallery img { width: 100%; max-width: 320px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>OKUNOLA GOD'SFAVOUR</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#modelling">Modelling</a>
+      <a href="#certifications">Certifications</a>
+      <a href="#contact-section">Contact</a>
+      <button id="theme-toggle">Dark Mode</button>
+    </nav>
+  </header>
+
+  <section id="profile">
+    <img src="images/profile.jpg" alt="Okunola God'sfavour" class="profile-pic">
+    <h2>Okunola God'sfavour</h2>
+    <p class="tagline">Cybersecurity Enthusiast · Red Team Analyst — Lagos, NG</p>
+    <div class="hero-buttons">
+      <a href="documents/God_sfavour_CV.pdf" target="_blank" class="btn btn-primary">Download CV</a>
+      <a href="#certifications" class="btn btn-outline">View certifications</a>
+    </div>
+  </section>
+
+  <section id="about" class="card-section">
+    <div class="eyebrow-tag">about</div>
+    <h2>About Me</h2>
+    <p>I'm a cybersecurity student with an entry-level background in ethical hacking and penetration testing. I have hands-on experience identifying security weaknesses, conducting vulnerability assessments, and running practice exploits on test environments.</p>
+    <p>I studied Cyber Security at Mcpherson University, where I also served as Cyber Security President (2024–2025) and a member of the NACOS committee. I'm constantly looking for opportunities to expand my knowledge and stay current with the field.</p>
+    <p>I've interned at EY, one of the Big Four, where I gained exposure to real-world security and compliance practices, and at Chams Access, where I got hands-on IT and security experience. Both experiences sharpened my problem-solving skills and ability to work under pressure.</p>
+  </section>
+
+  <section id="skills" class="card-section">
+    <div class="eyebrow-tag">skills</div>
+    <h2>Skills</h2>
+    <ul class="skill-list">
+      <li>Penetration Testing</li>
+      <li>Vulnerability Assessment (Metasploit)</li>
+      <li>Directory &amp; Page Enumeration (Dirb)</li>
+      <li>CTF Hosting &amp; Administration (CTFd)</li>
+      <li>Learning Subdomain Enumeration</li>
+      <li>Java</li>
+      <li>HTML &amp; CSS</li>
+    </ul>
+  </section>
+
+  <section id="experience" class="card-section">
+    <div class="eyebrow-tag">experience</div>
+    <h2>Experience</h2>
+    <div class="exp-row">
+      <div>
+        <div class="exp-role">Intern — Ernst &amp; Young (EY)</div>
+        <div class="exp-meta">Compliance &amp; information security training, real-world exposure</div>
+      </div>
+      <div class="exp-meta">4 months</div>
+    </div>
+    <div class="exp-row">
+      <div>
+        <div class="exp-role">Intern — Chams Access</div>
+        <div class="exp-meta">Hands-on IT &amp; security operations experience</div>
+      </div>
+      <div class="exp-meta">4 months</div>
+    </div>
+    <div class="exp-row">
+      <div>
+        <div class="exp-role">B.Sc Cyber Security — Mcpherson University</div>
+        <div class="exp-meta">NACOS Committee member</div>
+      </div>
+      <div class="exp-meta">2023 – 2027</div>
+    </div>
+    <div class="exp-row">
+      <div>
+        <div class="exp-role">Cyber Security President</div>
+        <div class="exp-meta">Student chapter leadership, Mcpherson University</div>
+      </div>
+      <div class="exp-meta">2024 – 2025</div>
+    </div>
+  </section>
+
+  <section id="projects" class="card-section">
+    <div class="eyebrow-tag">projects</div>
+    <h2>Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Hidden Page Discovery with Dirb</h3>
+        <p>Used Dirb to enumerate directories and uncover hidden or unlinked pages on target web applications during reconnaissance.</p>
+        <div class="tag-row"><span class="tag-pill">Dirb</span><span class="tag-pill">Recon</span></div>
+      </div>
+      <div class="project-card">
+        <h3>Vulnerability Scanning with Metasploit</h3>
+        <p>Ran vulnerability scans and exploit testing against practice environments using the Metasploit framework.</p>
+        <div class="tag-row"><span class="tag-pill">Metasploit</span></div>
+      </div>
+      <div class="project-card">
+        <h3>CTFd Hosting</h3>
+        <p>Set up and hosted a CTFd instance to run capture-the-flag challenges for practice and skill-building.</p>
+        <div class="tag-row"><span class="tag-pill">CTFd</span><span class="tag-pill">Self-hosted</span></div>
+      </div>
+      <div class="project-card">
+        <h3>Personal Portfolio Site</h3>
+        <p>Designed and built this portfolio to showcase both security work and modeling experience.</p>
+        <div class="tag-row"><span class="tag-pill">HTML</span><span class="tag-pill">CSS</span><span class="tag-pill">JS</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="modelling" class="card-section">
+    <div class="eyebrow-tag">modelling</div>
+    <h2>Modelling</h2>
+    <p>Beyond cybersecurity, I work as an independent runway and commercial model — no agency, just showing up and doing the work. Most recently walked at Pappy Fire Fiesta.</p>
+    <div class="modeling-gallery">
+      <img src="images/model-1.jpg" alt="Okunola God'sfavour portrait" onclick="openImgModal('images/model-1.jpg')">
+      <img src="images/model-2.jpg" alt="Okunola God'sfavour styled shot" onclick="openImgModal('images/model-2.jpg')">
+    </div>
+    <a href="#contact-section" class="btn btn-primary">Book me</a>
+  </section>
+
+  <section id="certifications" class="card-section">
+    <div class="eyebrow-tag">certifications</div>
+    <h2>Certifications</h2>
+    <p>2 in review</p>
+    <div class="cert-grid">
+
+      <div class="cert-card">
+        <a href="documents/cert-1.pdf" target="_blank"><div class="cert-preview">Certificate 1</div></a>
+        <h3>Introduction to Cybersecurity</h3>
+        <div class="cert-issuer">Cisco Networking Academy · Mar 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-2.pdf" target="_blank"><div class="cert-preview">Certificate 2</div></a>
+        <h3>Intro to CISSP: Security Assessment &amp; Testing, Security Operations</h3>
+        <div class="cert-issuer">SkillUp by Simplilearn · Jun 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-3.pdf" target="_blank"><div class="cert-preview">Certificate 3</div></a>
+        <h3>Introduction to Cybercrime</h3>
+        <div class="cert-issuer">SkillUp by Simplilearn · May 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-4.pdf" target="_blank"><div class="cert-preview">Certificate 4</div></a>
+        <h3>Power BI for Beginners</h3>
+        <div class="cert-issuer">SkillUp by Simplilearn · May 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-5.pdf" target="_blank"><div class="cert-preview">Certificate 5</div></a>
+        <h3>Temporary Client Serving Professionals Global</h3>
+        <div class="cert-issuer">Ernst &amp; Young · Jul 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-6.pdf" target="_blank"><div class="cert-preview">Certificate 6</div></a>
+        <h3>Information Security for New Joiners</h3>
+        <div class="cert-issuer">Ernst &amp; Young · Sep 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-7.pdf" target="_blank"><div class="cert-preview">Certificate 7</div></a>
+        <h3>Data Protection Fundamentals</h3>
+        <div class="cert-issuer">Ernst &amp; Young · Jul 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-8.pdf" target="_blank"><div class="cert-preview">Certificate 8</div></a>
+        <h3>Financial Crime: Staff — Senior Fundamentals</h3>
+        <div class="cert-issuer">Ernst &amp; Young · Jul 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-9.pdf" target="_blank"><div class="cert-preview">Certificate 9</div></a>
+        <h3>Global Code of Conduct for New Joiners</h3>
+        <div class="cert-issuer">Ernst &amp; Young · Jul 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-10.pdf" target="_blank"><div class="cert-preview">Certificate 10</div></a>
+        <h3>Data Protection Fundamentals — 45 Day Program</h3>
+        <div class="cert-issuer">EY Learning · Jul 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-11.pdf" target="_blank"><div class="cert-preview">Certificate 11</div></a>
+        <h3>Financial Crime: Staff — Senior Fundamentals (45 Day Program)</h3>
+        <div class="cert-issuer">EY Learning · Jul 2026</div>
+      </div>
+
+      <div class="cert-card">
+        <a href="documents/cert-12.pdf" target="_blank"><div class="cert-preview">Certificate 12</div></a>
+        <h3>Cybersecurity Job Simulation</h3>
+        <div class="cert-issuer">Mastercard · Forage · Sep 2026</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="contact-section" class="card-section">
+    <div class="eyebrow-tag">contact</div>
+    <h2>Contact Me</h2>
+    <p>If you would like to get in touch with me, please feel free to reach out through the following channels:</p>
+    <div class="contact-buttons">
+      <a href="mailto:godsfavouradeoluwaokunola@gmail.com" class="btn btn-primary">Email me</a>
+      <a href="https://www.instagram.com/adeoluwaokuns" target="_blank" class="btn btn-outline">Instagram</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 OKUNOLA GOD'SFAVOUR. All rights reserved.</p>
+  </footer>
+
+  <!-- IMAGE VIEWER MODAL -->
+  <div class="img-modal" id="imgModal" onclick="if(event.target===this) closeImgModal()">
+    <button class="img-modal-close" onclick="closeImgModal()" aria-label="Close">✕</button>
+    <img id="imgModalPic" src="" alt="">
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    toggleBtn.addEventListener('click', function () {
+      document.body.classList.toggle('dark');
+      toggleBtn.textContent = document.body.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+    });
+
+    function openImgModal(src) {
+      document.getElementById('imgModalPic').src = src;
+      document.getElementById('imgModal').classList.add('open');
+    }
+    function closeImgModal() {
+      document.getElementById('imgModal').classList.remove('open');
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeImgModal();
+    });
+  </script>
+
+</body>
+</html>
